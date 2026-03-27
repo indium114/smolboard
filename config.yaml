@@ -1,0 +1,81 @@
+points:
+  zones:
+    left_matrix:
+      columns:
+        mod:
+          key:
+            column_net: P020
+        pinky:
+          key:
+            stagger: 6
+            column_net: P022
+        ring:
+          key:
+            stagger: 3
+            column_net: P024
+        middle:
+          key:
+            stagger: -3
+            column_net: P100
+          rows:
+            mod:
+              skip: true
+        index:
+          key:
+            stagger: -3
+            column_net: P011
+          rows:
+            mod:
+              skip: true
+        inner:
+          key:
+            stagger: -3
+            column_net: P104
+          rows:
+            mod:
+              skip: true
+            bottom:
+              skip: true
+
+      rows:
+        mod:
+          row_net: P031
+        bottom:
+          row_net: P029
+        middle:
+          row_net: P002
+        top:
+          row_net: P115
+
+    thumb:
+      key:
+        rotate: -30
+        shift: [90, -5]
+        column_net: P106
+
+outlines:
+  left:
+    - where: true
+      what: rectangle
+      size: [cx + 2, cy + 2]
+      fillet: 3
+
+pcbs:
+  left:
+    outlines:
+      main:
+        outline: left
+    footprints:
+      keyswitches:
+        where: true
+        what: choc
+        params:
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{row_net}}"
+      nice_nano:
+        what: nice_nano
+        params:
+          orientation: up
+        where:
+          ref: matrix_mod_top
