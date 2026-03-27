@@ -1,6 +1,6 @@
 points:
   zones:
-    left_matrix:
+    matrix:
       columns:
         mod:
           key:
