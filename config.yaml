@@ -1,4 +1,7 @@
 points:
+  mirror:
+    ref: matrix_inner_top
+    distance: 100
   zones:
     matrix:
       columns:
@@ -55,7 +58,17 @@ points:
 
 outlines:
   left:
-    - where: true
+    - where: /^matrix|^thumb/  # matches only left-side points
+      what: rectangle
+      size: [cx + 2, cy + 2]
+      fillet: 3
+  right:
+    - where: /^mirror_/        # matches only mirrored (right-side) points
+      what: rectangle
+      size: [cx + 2, cy + 2]
+      fillet: 3
+  both:
+    - where: true              # matches everything — useful for preview
       what: rectangle
       size: [cx + 2, cy + 2]
       fillet: 3
@@ -67,7 +80,7 @@ pcbs:
         outline: left
     footprints:
       keyswitches:
-        where: true
+        where: /^matrix|^thumb/
         what: choc
         params:
           hotswap: true
@@ -79,3 +92,22 @@ pcbs:
           orientation: up
         where:
           ref: matrix_mod_top
+
+  right:
+    outlines:
+      main:
+        outline: right
+    footprints:
+      keyswitches:
+        where: /^mirror_/
+        what: choc
+        params:
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{row_net}}"
+      nice_nano:
+        what: nice_nano
+        params:
+          orientation: up
+        where:
+          ref: mirror_matrix_mod_top
